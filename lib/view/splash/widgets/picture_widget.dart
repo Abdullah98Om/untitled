@@ -5,13 +5,10 @@ import '../../../core/util/constant.dart';
 
 class PictureWidget extends StatelessWidget {
   const PictureWidget(
-      {super.key,
-      required this.itemsList,
-      required this.selected,
-      required this.index});
+      {super.key, required this.itemsList, required this.index});
 
   final List<Map<String, dynamic>> itemsList;
-  final int selected, index;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +27,8 @@ class PictureWidget extends StatelessWidget {
               child: Center(
                   child: Text(
                 itemsList[index]["title"],
-                style: TextStyle(
-                    color: selected == index
-                        ? Colors.white
-                        : AppColor.primaryColor,
+                style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 58.67,
                     fontWeight: FontWeight.bold),
               ))),

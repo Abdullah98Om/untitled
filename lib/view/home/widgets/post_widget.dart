@@ -28,20 +28,14 @@ class PostWidget extends StatelessWidget {
           children: [
             // post
             Container(
-              margin: const EdgeInsets.only(
-                top: 16,
-                bottom: 10,
-              ),
+              margin: const EdgeInsets.only(top: 16, bottom: 10),
               padding: const EdgeInsets.all(32),
               width: MediaQuery.sizeOf(context).width,
               height: showDetailes ? 538 : 410,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(39),
                   image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        img,
-                      ))),
+                      fit: BoxFit.cover, image: NetworkImage(img))),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

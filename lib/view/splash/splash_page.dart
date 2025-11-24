@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/routers/routers_name.dart';
 import 'widgets/describtion_widget.dart';
 import 'widgets/dots_widget.dart';
 import 'widgets/group_profile_widget.dart';
@@ -32,56 +33,52 @@ class _SplashPageState extends State<SplashPage> {
   ];
   bool reveseShape = false;
   int selected = 0;
-  late PageController pageController;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 0);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(itemsList[selected]["color"]),
-      body: PageView.builder(
-          controller: pageController,
-          itemCount: itemsList.length,
-          onPageChanged: (value) {
-            setState(() {
-              selected = value;
-            });
-          },
-          itemBuilder: (context, index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 116),
-                // img
-                PictureWidget(
-                    itemsList: itemsList, selected: selected, index: index),
-                const SizedBox(height: 27),
+        backgroundColor: Color(itemsList[selected]["color"]),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 116),
+            // img
+            PictureWidget(itemsList: itemsList, index: selected),
+            const SizedBox(height: 27),
 
-                // media
-                const GroupProfileWidget(size: 67, location: 26),
-                const SizedBox(height: 22),
+            // media
+            const GroupProfileWidget(size: 67, location: 26),
+            const SizedBox(height: 22),
 
-                // descriptions
-                DescribtionWidget(describtion: itemsList[index]["describtion"]),
-                const SizedBox(height: 28),
+            // descriptions
+            DescribtionWidget(describtion: itemsList[selected]["describtion"]),
+            const SizedBox(height: 28),
 
-                // Dots
-                DotsWidget(itemsList: itemsList, selected: selected),
-                const SizedBox(height: 42),
+            // Dots
+            DotsWidget(itemsList: itemsList, selected: selected),
+            const SizedBox(height: 42),
 
-                // Next Button
-                NextButtonWidget(
-                    selected: selected,
-                    itemsList: itemsList,
-                    pageController: pageController)
-              ],
-            );
-          }),
-    );
+            // Next Button
+            NextButtonWidget(
+              onTap: () {
+                if (selected == itemsList.length - 1) {
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RoutesName.indexPage, (_) => false);
+                } else {
+                  setState(() {
+                    selected++;
+                  });
+                }
+              },
+              value: (selected + 1) / itemsList.length,
+              itemsList: itemsList,
+            )
+          ],
+        ));
   }
 }
